@@ -18,3 +18,10 @@ mysql-kube: Folder contains all .yaml neccessary for mysql deployment as pods on
 application-kube: Folder contains .yaml neccessary for application deployment on miniKube/K8 cluster
   1. `kubectl apply -f deployment.yaml`
   2. `kubectl apply -f app-svc.yaml`
+
+
+
+# TODO
+
+
+Integrate Helm for better k8 package management
