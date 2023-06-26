@@ -25,4 +25,5 @@ application-kube: Folder contains .yaml neccessary for application deployment on
 
 
 Integrate Helm for better k8 package management
+
 Make endpoint configurable in runtime for future use case exposing UI for the purpose
