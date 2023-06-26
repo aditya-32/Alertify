@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot-app
+  template:
+    metadata:
+      labels:
+        app: spring-boot-app
+    spec:
+      containers:
+        - name: spring-boot-app
+          image: spring-boot-app:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 7197
+          readinessProbe:
+            httpGet:
+              port: 7197
+              path: /healthcheck/status
+            initialDelaySeconds: 10
+            failureThreshold: 5
+          livenessProbe:
+            httpGet:
+              port: 7197
+              path: /healthcheck/status
+            failureThreshold: 10
+            initialDelaySeconds: 10
+          env:
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: database-name
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: user-username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: user-password
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: database-host
+
+
